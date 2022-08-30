@@ -1,10 +1,10 @@
 # Ansible Role: AWS CLI
 
-An [Ansible Galaxy](https://galaxy.ansible.com/) role for installing or updating the latest version of [AWS Command Line Interface](https://aws.amazon.com/cli/).
+An [Ansible Galaxy](https://galaxy.ansible.com/) role for installing or updating [AWS Command Line Interface](https://aws.amazon.com/cli/).
 
 ## Role Variables
 
-The role defaults (see `defaults/main.yml`) assume Amazon's official installer URL for the 64-bit Linux package:
+The role defaults (see `defaults/main.yml`) use Amazon's official installer URL for the 64-bit Linux package:
 
 ```
 https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -21,6 +21,14 @@ If AWS CLI is already installed at the default location of `/usr/local/bin/aws` 
 ```yaml
 aws_cli_update: true
 ```
+
+This role creates a temporary directory under `/tmp` where the AWS CLI installer and associated files are extracted before the AWS CLI `install` script is executed. The temporary directory is removed after the script completes. If the `/tmp` directory on the target host(s) resides on a filesystem that is mounted with the `noexec` option, intallation will fail with a 'Permission denied' error as the `install` script cannot be executed in this scenario. Specify an alternative directory path in this case, using the `temp_dir` role variable, to a directory with no such restrictions:
+
+```
+temp_dir: "/home/{{ ansible_user }}"
+```
+
+In this case a temporary directory will be created inside `/home/{{ ansible_user }}/` and removed at the end of the role.
 
 ## Example Requirements File
 
