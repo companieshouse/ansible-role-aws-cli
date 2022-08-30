@@ -1,8 +1,7 @@
 ---
 
 - name: Create temporary directory
-  become_user: "{{ tuxedo_user }}"
-  tempfile:
+  ansible.builtin.tempfile:
     state: directory
   register: aws_cli_temp
 
@@ -15,6 +14,6 @@
   ansible.builtin.command: "sh {{ aws_cli_temp }}/aws/install"
 
 - name: Remove temporary directory
-  file:
+  ansible.builtin.file:
     path: "{{ aws_cli_temp.path }}"
     state: absent
