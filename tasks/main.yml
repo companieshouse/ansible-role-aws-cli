@@ -1,0 +1,9 @@
+---
+
+- name: Check if AWS CLI is installed
+  stat: 
+    path: /usr/local/bin/aws
+  register: aws_cli
+
+- include_tasks: awscli.yml
+  when: not aws_cli.stat.exists or aws_cli_update

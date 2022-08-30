@@ -1,0 +1,20 @@
+---
+
+- name: Create temporary directory
+  become_user: "{{ tuxedo_user }}"
+  tempfile:
+    state: directory
+  register: aws_cli_temp
+
+- name: Extract AWS CLI installer to temporary directory
+  ansible.builtin.unarchive:
+    url: 
+    dest: "{{ aws_cli_temp }}"
+
+- name: Install AWS CLI
+  ansible.builtin.command: "sh {{ aws_cli_temp }}/aws/install"
+
+- name: Remove temporary directory
+  file:
+    path: "{{ aws_cli_temp.path }}"
+    state: absent
