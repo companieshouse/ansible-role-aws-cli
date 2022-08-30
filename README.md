@@ -28,7 +28,7 @@ This role creates a temporary directory under `/tmp` where the AWS CLI installer
 temp_dir: "/home/{{ ansible_user }}"
 ```
 
-In this case a temporary directory will be created inside `/home/{{ ansible_user }}` and removed at the end of the role.
+Using the above value, the temporary directory will be created inside `/home/{{ ansible_user }}` rather than `/tmp`, and removed at the end of the role.
 
 ## Example Requirements File
 
@@ -41,9 +41,9 @@ In this case a temporary directory will be created inside `/home/{{ ansible_user
 ## Example Playbook
 
 ```yml
-    - hosts: servers
-      roles:
-        - aws-cli
+- hosts: servers
+  roles:
+    - aws-cli
 ```
 
 ## License
