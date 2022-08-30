@@ -3,7 +3,7 @@ dependencies: []
 galaxy_info:
   role_name: aws-cli
   author: Companies House
-  description: Install or update latest version of AWS CLI
+  description: Install or update AWS CLI
   license: MIT
   min_ansible_version: 2.9.10
   platforms:
