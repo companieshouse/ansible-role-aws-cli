@@ -1,6 +1,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: aws-cli
   author: Companies House
   description: Install or update latest version of AWS CLI
   license: MIT
