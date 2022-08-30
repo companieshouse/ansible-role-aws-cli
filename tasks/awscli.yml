@@ -7,7 +7,8 @@
 
 - name: Extract AWS CLI installer to temporary directory
   ansible.builtin.unarchive:
-    url: 
+    remote_src: yes
+    src: "{{ aws_cli_url }}"
     dest: "{{ aws_cli_temp }}"
 
 - name: Install AWS CLI
