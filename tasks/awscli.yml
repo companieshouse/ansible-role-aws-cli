@@ -12,7 +12,8 @@
     dest: "{{ aws_cli_temp.path }}"
 
 - name: Install AWS CLI
-  ansible.builtin.command: "sh {{ aws_cli_temp }}/aws/install"
+  ansible.builtin.command:
+    cmd: "sh {{ aws_cli_temp }}/aws/install"
 
 - name: Remove temporary directory
   ansible.builtin.file:
