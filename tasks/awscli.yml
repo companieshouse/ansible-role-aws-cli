@@ -1,0 +1,30 @@
+---
+
+- name: Create temporary directory
+  tempfile:
+    path: "{{ temp_dir }}"
+    state: directory
+  register: aws_cli_temp_dir
+
+- name: Extract AWS CLI installer to temporary directory
+  unarchive:
+    remote_src: yes
+    src: "{{ aws_cli_url }}"
+    dest: "{{ aws_cli_temp_dir.path }}"
+
+- name: Install AWS CLI
+  shell: ./install
+  args:
+    chdir: "{{ aws_cli_temp_dir.path }}/aws"
+  when: not aws_cli.stat.exists
+
+- name: Update existing AWS CLI
+  shell: ./install --update
+  args:
+    chdir: "{{ aws_cli_temp_dir.path }}/aws"
+  when: aws_cli.stat.exists
+
+- name: Remove temporary directory
+  file:
+    path: "{{ aws_cli_temp_dir.path }}"
+    state: absent
